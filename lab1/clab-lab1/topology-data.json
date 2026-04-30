@@ -1,0 +1,460 @@
+{
+  "name": "lab1",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-63c5540f8671",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "3fff:172:20:20::/64",
+        "ipv6-gw": "3fff:172:20:20::1",
+        "external-access": true
+      }
+    }
+  },
+  "ssh-pub-keys": [],
+  "nodes": {
+    "bleaf": {
+      "index": "0",
+      "shortname": "bleaf",
+      "longname": "clab-lab1-bleaf",
+      "fqdn": "bleaf.lab1.io",
+      "group": "",
+      "labdir": "/home/eda/muzolab/lab1/clab-lab1/bleaf",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.15",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::f",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "1a:77:00:00:00:00",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-63c5540f8671",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/home/eda/muzolab/lab1/clab-lab1/bleaf",
+        "clab-node-longname": "clab-lab1-bleaf",
+        "clab-node-name": "bleaf",
+        "clab-node-type": "ixr-d3l",
+        "clab-owner": "eda",
+        "clab-topo-file": "/home/eda/muzolab/lab1/lab1.yml",
+        "containerlab": "lab1"
+      },
+      "port-bindings": [
+      ]
+    },
+    "host1": {
+      "index": "1",
+      "shortname": "host1",
+      "longname": "clab-lab1-host1",
+      "fqdn": "host1.lab1.io",
+      "group": "",
+      "labdir": "/home/eda/muzolab/lab1/clab-lab1/host1",
+      "kind": "linux",
+      "image": "ipnetxyz/lfne:ubuntu-24.04",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.17",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::11",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-63c5540f8671",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/eda/muzolab/lab1/clab-lab1/host1",
+        "clab-node-longname": "clab-lab1-host1",
+        "clab-node-name": "host1",
+        "clab-node-type": "",
+        "clab-owner": "eda",
+        "clab-topo-file": "/home/eda/muzolab/lab1/lab1.yml",
+        "containerlab": "lab1"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "host2": {
+      "index": "2",
+      "shortname": "host2",
+      "longname": "clab-lab1-host2",
+      "fqdn": "host2.lab1.io",
+      "group": "",
+      "labdir": "/home/eda/muzolab/lab1/clab-lab1/host2",
+      "kind": "linux",
+      "image": "ipnetxyz/lfne:ubuntu-24.04",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.19",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::13",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-63c5540f8671",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/eda/muzolab/lab1/clab-lab1/host2",
+        "clab-node-longname": "clab-lab1-host2",
+        "clab-node-name": "host2",
+        "clab-node-type": "",
+        "clab-owner": "eda",
+        "clab-topo-file": "/home/eda/muzolab/lab1/lab1.yml",
+        "containerlab": "lab1"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "host3": {
+      "index": "3",
+      "shortname": "host3",
+      "longname": "clab-lab1-host3",
+      "fqdn": "host3.lab1.io",
+      "group": "",
+      "labdir": "/home/eda/muzolab/lab1/clab-lab1/host3",
+      "kind": "linux",
+      "image": "ipnetxyz/lfne:ubuntu-24.04",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.20",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::14",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-63c5540f8671",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/eda/muzolab/lab1/clab-lab1/host3",
+        "clab-node-longname": "clab-lab1-host3",
+        "clab-node-name": "host3",
+        "clab-node-type": "",
+        "clab-owner": "eda",
+        "clab-topo-file": "/home/eda/muzolab/lab1/lab1.yml",
+        "containerlab": "lab1"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "host4": {
+      "index": "4",
+      "shortname": "host4",
+      "longname": "clab-lab1-host4",
+      "fqdn": "host4.lab1.io",
+      "group": "",
+      "labdir": "/home/eda/muzolab/lab1/clab-lab1/host4",
+      "kind": "linux",
+      "image": "ipnetxyz/lfne:ubuntu-24.04",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.18",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::12",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-63c5540f8671",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/eda/muzolab/lab1/clab-lab1/host4",
+        "clab-node-longname": "clab-lab1-host4",
+        "clab-node-name": "host4",
+        "clab-node-type": "",
+        "clab-owner": "eda",
+        "clab-topo-file": "/home/eda/muzolab/lab1/lab1.yml",
+        "containerlab": "lab1"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "host5": {
+      "index": "5",
+      "shortname": "host5",
+      "longname": "clab-lab1-host5",
+      "fqdn": "host5.lab1.io",
+      "group": "",
+      "labdir": "/home/eda/muzolab/lab1/clab-lab1/host5",
+      "kind": "linux",
+      "image": "ipnetxyz/lfne:ubuntu-24.04",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.16",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::10",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-63c5540f8671",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/eda/muzolab/lab1/clab-lab1/host5",
+        "clab-node-longname": "clab-lab1-host5",
+        "clab-node-name": "host5",
+        "clab-node-type": "",
+        "clab-owner": "eda",
+        "clab-topo-file": "/home/eda/muzolab/lab1/lab1.yml",
+        "containerlab": "lab1"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "leaf1": {
+      "index": "6",
+      "shortname": "leaf1",
+      "longname": "clab-lab1-leaf1",
+      "fqdn": "leaf1.lab1.io",
+      "group": "",
+      "labdir": "/home/eda/muzolab/lab1/clab-lab1/leaf1",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.12",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::c",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "1a:23:06:00:00:00",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-63c5540f8671",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/home/eda/muzolab/lab1/clab-lab1/leaf1",
+        "clab-node-longname": "clab-lab1-leaf1",
+        "clab-node-name": "leaf1",
+        "clab-node-type": "ixr-d3l",
+        "clab-owner": "eda",
+        "clab-topo-file": "/home/eda/muzolab/lab1/lab1.yml",
+        "containerlab": "lab1"
+      },
+      "port-bindings": [
+      ]
+    },
+    "leaf2": {
+      "index": "7",
+      "shortname": "leaf2",
+      "longname": "clab-lab1-leaf2",
+      "fqdn": "leaf2.lab1.io",
+      "group": "",
+      "labdir": "/home/eda/muzolab/lab1/clab-lab1/leaf2",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.14",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::e",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "1a:fb:07:00:00:00",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-63c5540f8671",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/home/eda/muzolab/lab1/clab-lab1/leaf2",
+        "clab-node-longname": "clab-lab1-leaf2",
+        "clab-node-name": "leaf2",
+        "clab-node-type": "ixr-d3l",
+        "clab-owner": "eda",
+        "clab-topo-file": "/home/eda/muzolab/lab1/lab1.yml",
+        "containerlab": "lab1"
+      },
+      "port-bindings": [
+      ]
+    },
+    "spine": {
+      "index": "8",
+      "shortname": "spine",
+      "longname": "clab-lab1-spine",
+      "fqdn": "spine.lab1.io",
+      "group": "",
+      "labdir": "/home/eda/muzolab/lab1/clab-lab1/spine",
+      "kind": "srl",
+      "image": "ghcr.io/nokia/srlinux",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.13",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::d",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "1a:5b:08:00:00:00",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-63c5540f8671",
+        "clab-node-group": "",
+        "clab-node-kind": "srl",
+        "clab-node-lab-dir": "/home/eda/muzolab/lab1/clab-lab1/spine",
+        "clab-node-longname": "clab-lab1-spine",
+        "clab-node-name": "spine",
+        "clab-node-type": "ixr-d3l",
+        "clab-owner": "eda",
+        "clab-topo-file": "/home/eda/muzolab/lab1/lab1.yml",
+        "containerlab": "lab1"
+      },
+      "port-bindings": [
+      ]
+    }
+  },
+  "links": [
+    {
+      "endpoints": {
+        "a": {
+          "node": "leaf1",
+          "interface": "e1-31",
+          "mac": "aa:c1:ab:15:9c:36",
+          "peer": "z"
+        },
+        "z": {
+          "node": "spine",
+          "interface": "e1-1",
+          "mac": "aa:c1:ab:ce:1f:b0",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "leaf2",
+          "interface": "e1-31",
+          "mac": "aa:c1:ab:d2:25:c4",
+          "peer": "z"
+        },
+        "z": {
+          "node": "spine",
+          "interface": "e1-3",
+          "mac": "aa:c1:ab:39:d7:3c",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "host1",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:90:68:b4",
+          "peer": "z"
+        },
+        "z": {
+          "node": "leaf1",
+          "interface": "e1-1",
+          "mac": "aa:c1:ab:63:34:79",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "host2",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:3e:b0:1d",
+          "peer": "z"
+        },
+        "z": {
+          "node": "leaf1",
+          "interface": "e1-2",
+          "mac": "aa:c1:ab:da:f5:62",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "host3",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:f3:eb:6b",
+          "peer": "z"
+        },
+        "z": {
+          "node": "leaf2",
+          "interface": "e1-1",
+          "mac": "aa:c1:ab:7b:44:d3",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "host4",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:29:99:4c",
+          "peer": "z"
+        },
+        "z": {
+          "node": "leaf2",
+          "interface": "e1-2",
+          "mac": "aa:c1:ab:bd:f1:69",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "bleaf",
+          "interface": "e1-31",
+          "mac": "aa:c1:ab:00:17:42",
+          "peer": "z"
+        },
+        "z": {
+          "node": "spine",
+          "interface": "e1-5",
+          "mac": "aa:c1:ab:00:ed:b6",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "host5",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:a0:73:38",
+          "peer": "z"
+        },
+        "z": {
+          "node": "bleaf",
+          "interface": "e1-1",
+          "mac": "aa:c1:ab:95:64:49",
+          "peer": "a"
+        }
+      }
+    }
+  ]
+}

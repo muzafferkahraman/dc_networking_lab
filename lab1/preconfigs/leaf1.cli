@@ -1,0 +1,147 @@
+set / interface ethernet-1/1 admin-state enable
+set / interface ethernet-1/1 vlan-tagging true
+set / interface ethernet-1/1 subinterface 100 type bridged
+set / interface ethernet-1/1 subinterface 100 admin-state enable
+set / interface ethernet-1/1 subinterface 100 vlan encap single-tagged vlan-id 100
+
+set / interface ethernet-1/2 admin-state enable
+set / interface ethernet-1/2 vlan-tagging true
+set / interface ethernet-1/2 subinterface 200 type bridged
+set / interface ethernet-1/2 subinterface 200 admin-state enable
+set / interface ethernet-1/2 subinterface 200 vlan encap single-tagged vlan-id 200
+
+set / interface ethernet-1/31 admin-state enable
+set / interface ethernet-1/31 vlan-tagging true
+set / interface ethernet-1/31 subinterface 1 admin-state enable
+set / interface ethernet-1/31 subinterface 1 ipv4 admin-state enable
+set / interface ethernet-1/31 subinterface 1 ipv4 address 169.254.0.0/31
+set / interface ethernet-1/31 subinterface 1 vlan encap single-tagged vlan-id 1
+
+set / interface system0 admin-state enable
+set / interface system0 subinterface 0 admin-state enable
+set / interface system0 subinterface 0 ipv4 admin-state enable
+set / interface system0 subinterface 0 ipv4 address 192.168.200.1/32
+
+set / interface irb0 subinterface 100 ipv4 admin-state enable
+set / interface irb0 subinterface 100 ipv4 address 10.0.0.1/24 anycast-gw true
+set / interface irb0 subinterface 100 ipv4 address 10.0.0.1/24 primary
+set / interface irb0 subinterface 100 ipv4 arp learn-unsolicited true
+set / interface irb0 subinterface 100 ipv4 arp host-route populate static
+set / interface irb0 subinterface 100 ipv4 arp host-route populate dynamic
+set / interface irb0 subinterface 100 ipv4 arp host-route populate evpn
+set / interface irb0 subinterface 100 ipv4 arp evpn advertise static
+set / interface irb0 subinterface 100 ipv4 arp evpn advertise dynamic
+set / interface irb0 subinterface 100 anycast-gw virtual-router-id 1
+
+set / interface irb0 subinterface 200 ipv4 admin-state enable
+set / interface irb0 subinterface 200 ipv4 address 10.0.1.1/24 anycast-gw true
+set / interface irb0 subinterface 200 ipv4 address 10.0.1.1/24 primary
+set / interface irb0 subinterface 200 ipv4 arp learn-unsolicited true
+set / interface irb0 subinterface 200 ipv4 arp host-route populate static
+set / interface irb0 subinterface 200 ipv4 arp host-route populate dynamic
+set / interface irb0 subinterface 200 ipv4 arp host-route populate evpn
+set / interface irb0 subinterface 200 ipv4 arp evpn advertise static
+set / interface irb0 subinterface 200 ipv4 arp evpn advertise dynamic
+set / interface irb0 subinterface 200 anycast-gw virtual-router-id 2
+
+set / routing-policy prefix-set loopback prefix 192.168.200.1/32 mask-length-range 32..32
+
+set / routing-policy policy filter-export default-action policy-result reject
+set / routing-policy policy filter-export statement 20 match prefix prefix-set loopback
+set / routing-policy policy filter-export statement 20 action policy-result accept
+
+set / routing-policy policy filter-import default-action policy-result reject
+set / routing-policy policy filter-import statement 30 match protocol bgp
+set / routing-policy policy filter-import statement 30 match family [ ipv4-unicast ]
+set / routing-policy policy filter-import statement 30 action policy-result accept
+
+set / routing-policy policy export-all default-action policy-result accept
+
+set / routing-policy policy import-all default-action policy-result accept
+
+set / tunnel-interface vxlan0 vxlan-interface 1 type bridged
+set / tunnel-interface vxlan0 vxlan-interface 1 ingress vni 100
+set / tunnel-interface vxlan0 vxlan-interface 1 egress source-ip use-system-ipv4-address
+
+set / tunnel-interface vxlan0 vxlan-interface 2 type bridged
+set / tunnel-interface vxlan0 vxlan-interface 2 ingress vni 200
+set / tunnel-interface vxlan0 vxlan-interface 2 egress source-ip use-system-ipv4-address
+
+set / network-instance default type default
+set / network-instance default admin-state enable
+set / network-instance default router-id 192.168.200.1
+set / network-instance default interface ethernet-1/31.1
+set / network-instance default interface system0.0
+set / network-instance default protocols bgp admin-state enable
+set / network-instance default protocols bgp autonomous-system 64601
+set / network-instance default protocols bgp router-id 192.168.200.1
+set / network-instance default protocols bgp ebgp-default-policy import-reject-all true
+set / network-instance default protocols bgp ebgp-default-policy export-reject-all true
+set / network-instance default protocols bgp afi-safi evpn admin-state enable
+set / network-instance default protocols bgp afi-safi evpn evpn rapid-update true
+set / network-instance default protocols bgp afi-safi ipv4-unicast admin-state enable
+set / network-instance default protocols bgp afi-safi ipv4-unicast multipath allow-multiple-as true
+set / network-instance default protocols bgp route-advertisement rapid-withdrawal true
+set / network-instance default protocols bgp route-advertisement wait-for-fib-install true
+set / network-instance default protocols bgp group ebgp admin-state enable
+set / network-instance default protocols bgp group ebgp export-policy [ filter-export ]
+set / network-instance default protocols bgp group ebgp import-policy [ filter-import ]
+set / network-instance default protocols bgp group ebgp afi-safi evpn admin-state disable
+set / network-instance default protocols bgp group ebgp afi-safi ipv4-unicast admin-state enable
+set / network-instance default protocols bgp group ibgp export-policy [ export-all ]
+set / network-instance default protocols bgp group ibgp import-policy [ import-all ]
+set / network-instance default protocols bgp group ibgp afi-safi evpn admin-state enable
+set / network-instance default protocols bgp group ibgp afi-safi ipv4-unicast admin-state disable
+set / network-instance default protocols bgp group ibgp local-as as-number 65501
+set / network-instance default protocols bgp neighbor 169.254.0.1 admin-state enable
+set / network-instance default protocols bgp neighbor 169.254.0.1 peer-as 65177
+set / network-instance default protocols bgp neighbor 169.254.0.1 peer-group ebgp
+set / network-instance default protocols bgp neighbor 169.254.0.1 afi-safi ipv4-unicast admin-state enable
+set / network-instance default protocols bgp neighbor 169.254.0.1 local-as as-number 64601
+set / network-instance default protocols bgp neighbor 169.254.0.1 transport local-address 169.254.0.0
+set / network-instance default protocols bgp neighbor 192.168.200.3 admin-state enable
+set / network-instance default protocols bgp neighbor 192.168.200.3 peer-as 65501
+set / network-instance default protocols bgp neighbor 192.168.200.3 peer-group ibgp
+set / network-instance default protocols bgp neighbor 192.168.200.3 afi-safi evpn admin-state enable
+set / network-instance default protocols bgp neighbor 192.168.200.3 local-as as-number 65501
+set / network-instance default protocols bgp neighbor 192.168.200.3 transport local-address 192.168.200.1
+
+set / network-instance vrf100 type mac-vrf
+set / network-instance vrf100 admin-state enable
+set / network-instance vrf100 interface ethernet-1/1.100
+set / network-instance vrf100 interface irb0.100
+set / network-instance vrf100 vxlan-interface vxlan0.1
+set / network-instance vrf100 protocols bgp-evpn bgp-instance 1 vxlan-interface vxlan0.1
+set / network-instance vrf100 protocols bgp-evpn bgp-instance 1 evi 100
+set / network-instance vrf100 protocols bgp-evpn bgp-instance 1 ecmp 8
+set / network-instance vrf100 protocols bgp-vpn bgp-instance 1 route-target export-rt target:65501:100
+set / network-instance vrf100 protocols bgp-vpn bgp-instance 1 route-target import-rt target:65501:100
+set / network-instance vrf100 bridge-table mac-learning admin-state enable
+
+set / network-instance vrf200 type mac-vrf
+set / network-instance vrf200 admin-state enable
+set / network-instance vrf200 interface ethernet-1/2.200
+set / network-instance vrf200 interface irb0.200
+set / network-instance vrf200 vxlan-interface vxlan0.2
+set / network-instance vrf200 protocols bgp-evpn bgp-instance 1 vxlan-interface vxlan0.2
+set / network-instance vrf200 protocols bgp-evpn bgp-instance 1 evi 200
+set / network-instance vrf200 protocols bgp-evpn bgp-instance 1 ecmp 8
+set / network-instance vrf200 protocols bgp-vpn bgp-instance 1 route-target export-rt target:65501:200
+set / network-instance vrf200 protocols bgp-vpn bgp-instance 1 route-target import-rt target:65501:200
+set / network-instance vrf200 bridge-table mac-learning admin-state enable
+
+set / tunnel-interface vxlan0 vxlan-interface 3 type routed
+set / tunnel-interface vxlan0 vxlan-interface 3 ingress vni 500
+set / tunnel-interface vxlan0 vxlan-interface 3 egress source-ip use-system-ipv4-address
+
+set / network-instance ipvrf type ip-vrf
+set / network-instance ipvrf admin-state enable
+set / network-instance ipvrf interface irb0.100
+set / network-instance ipvrf interface irb0.200
+set / network-instance ipvrf vxlan-interface vxlan0.3
+set / network-instance ipvrf protocols bgp-evpn bgp-instance 1 vxlan-interface vxlan0.3
+set / network-instance ipvrf protocols bgp-evpn bgp-instance 1 evi 500
+set / network-instance ipvrf protocols bgp-evpn bgp-instance 1 ecmp 8
+set / network-instance ipvrf protocols bgp-evpn bgp-instance 1 routes route-table mac-ip advertise-gateway-mac true
+set / network-instance ipvrf protocols bgp-vpn bgp-instance 1 route-target export-rt target:65501:500
+set / network-instance ipvrf protocols bgp-vpn bgp-instance 1 route-target import-rt target:65501:500

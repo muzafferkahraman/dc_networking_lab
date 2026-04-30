@@ -1,0 +1,111 @@
+name: lab1
+topology:
+  kinds:
+    srl:
+      image: ghcr.io/nokia/srlinux
+    linux:
+      image: ipnetxyz/lfne:ubuntu-24.04
+  nodes:
+    spine:
+      kind: srl
+      type: ixr-d3l
+      startup-config: preconfigs/spine.cli
+    leaf1:
+      kind: srl
+      type: ixr-d3l
+      startup-config: preconfigs/leaf1.cli
+    leaf2:
+      kind: srl
+      type: ixr-d3l
+      startup-config: preconfigs/leaf2.cli
+    bleaf:
+      kind: srl
+      type: ixr-d3l
+      startup-config: preconfigs/bleaf.cli
+    host1:
+      kind: linux
+      exec:
+      - sed -i 's/^#\(PasswordAuthentication yes\)/\1/' /etc/ssh/sshd_config
+      - sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+      - sed -i 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+      - mkdir -p /run/sshd
+      - /usr/sbin/sshd
+      - ip link set dev eth1 up
+      - ip link set dev eth1 mtu 1500
+      - ip link set dev eth1 address 00:00:00:01:01:00
+      - ip link add link eth1 name eth1.100 type vlan id 100
+      - ip addr add 10.0.0.2/24 dev eth1.100
+      - ip link set eth1.100 up
+      - ip route add 10.0.1.0/24 via 10.0.0.1
+      - echo "root:Alcateldc" | chpasswd
+    host2:
+      kind: linux
+      exec:
+      - sed -i 's/^#\(PasswordAuthentication yes\)/\1/' /etc/ssh/sshd_config
+      - sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+      - sed -i 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+      - mkdir -p /run/sshd
+      - /usr/sbin/sshd
+      - ip link set dev eth1 up
+      - ip link set dev eth1 mtu 1500
+      - ip link set dev eth1 address 00:00:00:01:02:00
+      - ip link add link eth1 name eth1.200 type vlan id 200
+      - ip addr add 10.0.1.2/24 dev eth1.200
+      - ip link set eth1.200 up
+      - ip route add 10.0.0.0/24 via 10.0.1.1
+      - echo "root:Alcateldc" | chpasswd
+    host3:
+      kind: linux
+      exec:
+      - sed -i 's/^#\(PasswordAuthentication yes\)/\1/' /etc/ssh/sshd_config
+      - sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+      - sed -i 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+      - mkdir -p /run/sshd
+      - /usr/sbin/sshd
+      - ip link set dev eth1 up
+      - ip link set dev eth1 mtu 1500
+      - ip link set dev eth1 address 00:00:00:01:03:00
+      - ip link add link eth1 name eth1.100 type vlan id 100
+      - ip addr add 10.0.0.3/24 dev eth1.100
+      - ip link set eth1.100 up
+      - ip route add 10.0.1.0/24 via 10.0.0.1
+      - echo "root:Alcateldc" | chpasswd
+    host4:
+      kind: linux
+      exec:
+      - sed -i 's/^#\(PasswordAuthentication yes\)/\1/' /etc/ssh/sshd_config
+      - sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+      - sed -i 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+      - mkdir -p /run/sshd
+      - /usr/sbin/sshd
+      - ip link set dev eth1 up
+      - ip link set dev eth1 mtu 1500
+      - ip link set dev eth1 address 00:00:00:01:04:00
+      - ip link add link eth1 name eth1.200 type vlan id 200
+      - ip addr add 10.0.1.3/24 dev eth1.200
+      - ip link set eth1.200 up
+      - ip route add 10.0.0.0/24 via 10.0.1.1
+      - echo "root:Alcateldc" | chpasswd
+    host5:
+      kind: linux
+      exec:
+      - sed -i 's/^#\(PasswordAuthentication yes\)/\1/' /etc/ssh/sshd_config
+      - sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+      - sed -i 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+      - mkdir -p /run/sshd
+      - /usr/sbin/sshd
+      - ip link set dev eth1 up
+      - ip link set dev eth1 mtu 1500
+      - ip link set dev eth1 address 00:00:00:01:05:00
+      - ip addr add 10.10.0.2/24 dev eth1
+      - ip link set eth1 up
+      - echo "root:Alcateldc" | chpasswd
+  links:
+  - endpoints: ["leaf1:e1-31", "spine:e1-1"]
+  - endpoints: ["leaf2:e1-31", "spine:e1-3"]
+  - endpoints: ["host1:eth1", "leaf1:e1-1"]
+  - endpoints: ["host2:eth1", "leaf1:e1-2"]
+  - endpoints: ["host3:eth1", "leaf2:e1-1"]
+  - endpoints: ["host4:eth1", "leaf2:e1-2"]
+  - endpoints: ["bleaf:e1-31", "spine:e1-5"]
+  - endpoints: ["host5:eth1", "bleaf:e1-1"]   

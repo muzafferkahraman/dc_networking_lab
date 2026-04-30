@@ -1,0 +1,46 @@
+---
+host1:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.17
+host2:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.19
+host3:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.20
+host4:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.18
+host5:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.16
+bleaf:
+    username: admin
+    password: NokiaSrl1!
+    platform: srl
+    hostname: 172.20.20.15
+leaf1:
+    username: admin
+    password: NokiaSrl1!
+    platform: srl
+    hostname: 172.20.20.12
+leaf2:
+    username: admin
+    password: NokiaSrl1!
+    platform: srl
+    hostname: 172.20.20.14
+spine:
+    username: admin
+    password: NokiaSrl1!
+    platform: srl
+    hostname: 172.20.20.13
