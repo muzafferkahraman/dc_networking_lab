@@ -1,60 +1,58 @@
-Leaf-2 and Spine are all preconfigured
-Please find all necesaary info at th lab1.png 
+## LAB1
 
+This Lab intends to facilitate an environment to help gain insights and practice of configuring 
+services with bgp-evpn for a datacenter, with SRLinux.
+
+The Lab Topology is below
+<br>
+![](lab1.png)
+<br>
+**After cloning the repo with**
+> git clone https://github.com/muzafferkahraman/dc_networking_lab
+
+**Deploy the Lab**
+> make deploy 
 ## Exercise-1
-
-# The Goal: Make necesary configs at Leaf1 so as to make it able to ping Host2 (10.10.10.3) from Host1
-
-# Verification: run "make pingtest"
-
-# Steps:
-
-At Leaf-1 Configure:
-
-The Interfaces for
-	Access (tagged with vlan 100)
-	ISL 
-	system 
-PrefixSet and Policies for BGP
-Tunnel Interface to handle vxlan with vni 100
-Mac-VRF (evi 100)
-Default Network Instance
-
+The Goal: Make necesary configs at Leaf1 and Leaf2 so as to make it possible to ping the IP addresses from the same MACVRF
+ie
+ping 10.0.0.3 from Host1
+ping 10.0.1.3 from Host2
+<br>
+**Verification:** run "make verify_macvrf"<br>
+**Hint for Steps:**<br>
+At Leaf1 and Leaf2 Configure: <br>
+The Interfaces for  Access (tagged with vlans),  ISL, system <br>
+PrefixSet and Policies for BGP<br>
+Tunnel Interface to handle vxlan with vnis<br>
+Default Network Instance<br>
+Mac-VRFs<br>
+<br>
 
 ## Exercise-2
-
-# The Goal: Change Host1-Leaf1 link to untagged and make it possible to ping Host2 (10.10.10.3) from Host1)
-
-# Tip: The commands for Host1 can be found by running "make help"
-
-# Verification: run "make pingtest"
-
-# Steps:
-
-Tag the interface at Host1
-Tag the interface at Leaf1
+The Goal: Make necesary configs at Leaf1 and Leaf2 so as to make it possible to ping the IP addresses from the different MACVRF
+ie
+ping 10.0.1.3 from Host1
+ping 10.0.0.3 from Host2
+<br>
+**Verification:** run "make verify_ipvrf"<br>
+**Hint for Steps:**<br>
+At Leaf1 and Leaf2 Configure:<br>
+Irb interfaces<br>
+Tunnel Interface to handle vxlan with vnis<br>
+IP-VRFs<br>
 
 
 ## Exercise-3
-
-# The Goal: Change Host1-Leaf1 link to tagged by vlan 200 
-Now you need sonme extra configgs to make it possible to ping Host2 (10.10.10.3) from Host1)
-
-# Tip: The commands for Host1 can be found by running "make help"
-
-# Verification: run "make pingtest"
-
-# Steps:
-
-At both Leaf1 and Leaf2
-Create an IRB intf
-Create a routed vxlan
-Create IP-VRF
-
-
-
-
-
-
+The Goal: Make necesary configs at Border Leaf so as to make it possible to ping the routed host address 10.10.0.2  from the hosts of the Leaf1 and Leaf2
+ie
+ping 10.10.0.2 from Host1
+ping 10.10.0.2 from Host2
+<br>
+**Verification:** run "make verify_routed"<br>
+**Hint for Steps:** (*Configs not stated here, are already provisioned)<br>
+At Border Leaf Configure:<br>
+The Interfaces for  Access (routed inteface to Host5) <br>
+Tunnel Interface to handle vxlan with vnis<br>
+IP-VRFs<br>
 
 

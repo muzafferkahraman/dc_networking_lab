@@ -99,6 +99,8 @@ topology:
       - ip link set dev eth1 address 00:00:00:01:05:00
       - ip addr add 10.10.0.2/24 dev eth1
       - ip link set eth1 up
+      - ip route add 10.0.0.0/24 via 10.10.0.3 dev eth1
+      - ip route add 10.0.1.0/24 via 10.10.0.3 dev eth1
       - echo "root:Alcateldc" | chpasswd
   links:
   - endpoints: ["leaf1:e1-31", "spine:e1-1"]

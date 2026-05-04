@@ -3,7 +3,7 @@ set / interface ethernet-1/1 vlan-tagging false
 set / interface ethernet-1/1 subinterface 0 type routed
 set / interface ethernet-1/1 subinterface 0 admin-state enable
 set / interface ethernet-1/1 subinterface 0 ipv4 admin-state enable
-set / interface ethernet-1/1 subinterface 0 ipv4 address 10.10.0.2/24
+set / interface ethernet-1/1 subinterface 0 ipv4 address 10.10.0.3/24
 
 set / interface ethernet-1/31 admin-state enable
 set / interface ethernet-1/31 vlan-tagging true
@@ -29,14 +29,7 @@ set / routing-policy policy filter-import statement 30 match family [ ipv4-unica
 set / routing-policy policy filter-import statement 30 action policy-result accept
 
 set / routing-policy policy export-all default-action policy-result accept
-
 set / routing-policy policy import-all default-action policy-result accept
-
-
-
-
-
-
 
 set / network-instance default type default
 set / network-instance default admin-state enable
@@ -76,3 +69,15 @@ set / network-instance default protocols bgp neighbor 192.168.200.3 peer-group i
 set / network-instance default protocols bgp neighbor 192.168.200.3 afi-safi evpn admin-state enable
 set / network-instance default protocols bgp neighbor 192.168.200.3 local-as as-number 65501
 set / network-instance default protocols bgp neighbor 192.168.200.3 transport local-address 192.168.200.4
+
+set / network-instance ipvrf type ip-vrf
+set / network-instance ipvrf admin-state enable
+set / network-instance ipvrf interface ethernet-1/1.0
+set / network-instance ipvrf vxlan-interface vxlan0.3
+set / network-instance ipvrf protocols bgp-evpn bgp-instance 1 vxlan-interface vxlan0.3
+set / network-instance ipvrf protocols bgp-evpn bgp-instance 1 evi 20000
+set / network-instance ipvrf protocols bgp-evpn bgp-instance 1 ecmp 8
+set / network-instance ipvrf protocols bgp-evpn bgp-instance 1 routes route-table mac-ip advertise-gateway-mac true
+set / network-instance ipvrf protocols bgp-vpn bgp-instance 1 route-target export-rt target:65501:500
+set / network-instance ipvrf protocols bgp-vpn bgp-instance 1 route-target import-rt target:65501:500
+

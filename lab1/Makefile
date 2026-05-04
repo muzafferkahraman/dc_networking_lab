@@ -12,6 +12,7 @@ test:
 	docker exec -ti clab-lab1-host1 ping 10.0.0.3 -c 2
 	docker exec -ti clab-lab1-host1 ping 10.0.1.2 -c 2
 	docker exec -ti clab-lab1-host1 ping 10.0.1.3 -c 2
+	
 
 
 show:
@@ -22,3 +23,15 @@ leaf1:
 
 host1:
 	docker exec -ti clab-lab1-host1 bash
+
+verify_macvrf:
+	docker exec -ti clab-lab1-host1 ping 10.0.0.3 -c 2
+	docker exec -ti clab-lab1-host2 ping 10.0.1.3 -c 2
+
+verify_ipvrf:
+	docker exec -ti clab-lab1-host1 ping 10.0.1.3 -c 2
+	docker exec -ti clab-lab1-host2 ping 10.0.0.3 -c 2
+
+verify_routed:
+	docker exec -ti clab-lab1-host1 ping 10.10.0.2 -c 2
+	docker exec -ti clab-lab1-host2 ping 10.0.0.2  -c 2
